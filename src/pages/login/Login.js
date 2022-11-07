@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import { sharedContext } from "../../context/UserContext";
 
 
 const Login = () => {
+    const {handleGoogleSignIn} = useContext(sharedContext);
     const [showPass, setShowPass] = useState(false);
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();
 
@@ -34,6 +36,7 @@ const Login = () => {
         <div className="my-6 space-y-4">
           <button
             aria-label="Login with Google"
+            onClick={handleGoogleSignIn}
             type="button"
             className="flex items-center justify-center w-full p-4 space-x-4 rounded-md focus:ring-2 focus:ring-offset-1 border-blue-600 border-2 bg-gray-800 hover:bg-blue-800 focus:ring-violet-400"
           >
