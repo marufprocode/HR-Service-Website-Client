@@ -1,25 +1,28 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { sharedContext } from "../../context/UserContext";
 
 const Register = () => {
-    // const [signUpError, setSignUpError] = useState(null);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {handleCreateUser, signUpError, user} = useContext(sharedContext);
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const passRef = useRef();
     const conPassRef = useRef();
     const password = watch ("password");
 
     const onSubmit = data => {
-        const confirmPassword = data.confirmPassword;
         const email = data.email;
         const firstName = data.firstName;
         const lastName = data.lastName;
+        const name = firstName + ' ' + lastName;
         const password = data.password;
         const phone = data.phone;
         const photoURL = data.photoURL;
-        const terms = data.terms;
-
-        console.log(confirmPassword, email, firstName, lastName, password, phone, photoURL, terms);
+        console.log(email, firstName, lastName, password, phone, photoURL);
+        handleCreateUser(email, password, photoURL, phone, name)
+        if(user){
+          reset();
+        }
     };
     console.log(errors);
 
@@ -131,12 +134,7 @@ const Register = () => {
                 errors.confirmPassword?.message &&
                 <p className="text-red-600 col-span-2"><span className="font-bold">Error:</span>{errors.confirmPassword?.message}</p>
               }
-              {/* <div className="col-span-2">
-                {
-                    signUpError && (signUpError !== 'termsBreak') &&
-                    <p className="text-red-500"><span className="font-bold">Error: </span>{signUpError}</p>
-                }
-              </div> */}
+              
               <div className="col-span-2">
                 <label htmlFor="PhotoURL" className="block font-bold text-sm">
                   Photo URL
@@ -170,12 +168,12 @@ const Register = () => {
                 errors.terms?.message && 
                 <p className="text-red-600 col-span-2"><span className="font-bold">Caution:</span>{errors.terms?.message}</p>
               }
-              {/* <div className="col-span-2">
+              <div className="col-span-2">
                 {
-                    (signUpError === 'termsBreak') &&
-                    <p className="text-red-500"><span className="font-bold">Caution: </span>You Must Have to Accept our Terms And Conditon.</p>
+                    signUpError &&
+                    <p className="text-red-500"><span className="font-bold">Error: </span>{signUpError}</p>
                 }
-              </div> */}
+              </div>
               <button type="submit" className="py-2 px-5 bg-sky-500 rounded-lg col-span-2 uppercase font-bold text-white hover:bg-sky-600 transition-all">Create An Account</button>
             </form>
           </div>

@@ -2,6 +2,8 @@ import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/Register/Register";
+import Services from "../pages/services/Services";
+import PrivateRoute from "./PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../layout/Main");
@@ -28,6 +30,10 @@ const routes = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register/>
+            },
+            {
+                path: '/services',
+                element: <PrivateRoute><Services/></PrivateRoute>
             }
         ]
     }

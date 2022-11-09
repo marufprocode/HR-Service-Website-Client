@@ -1,20 +1,48 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 
 
 const Login = () => {
-    const {handleGoogleSignIn} = useContext(sharedContext);
+    const {handleGoogleSignIn, signInError, handleSignIn} = useContext(sharedContext);
     const [showPass, setShowPass] = useState(false);
+    const navigate = useNavigate();
+	  const location = useLocation();
+	  let from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();
 
     const onSubmit = data => {
         const email = data.email;
         const password = data.password;
         console.log(email, password);
+        handleSignIn(email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          if(user){
+            navigate(from, { replace: true });
+          }
+        })
+        .catch((error) => {
+          console.error('error', error);
+        })          
     };
+
+    const googleSignIn = () => {
+      handleGoogleSignIn()
+      .then((result) => {
+        const user = result.user;
+        if(user){
+          navigate(from, { replace: true });
+        }
+      }).catch((error) => {
+          console.error('error', error);
+      })
+    }
+
+    
 
   return (
     <div className="flex justify-center items-center relative min-h-screen">
@@ -36,7 +64,7 @@ const Login = () => {
         <div className="my-6 space-y-4">
           <button
             aria-label="Login with Google"
-            onClick={handleGoogleSignIn}
+            onClick={googleSignIn}
             type="button"
             className="flex items-center justify-center w-full p-4 space-x-4 rounded-md focus:ring-2 focus:ring-offset-1 border-blue-600 border-2 bg-gray-800 hover:bg-blue-800 focus:ring-violet-400"
           >
@@ -98,6 +126,12 @@ const Login = () => {
               />
               <div className="absolute right-4 bottom-3 cursor-pointer" onClick={()=>setShowPass(!showPass)}>{showPass? <FaEyeSlash className="text-white"/>:<FaEye className="text-white"/>}</div>
             </div>
+          </div>
+          <div>
+            {
+              signInError &&
+              <p className="text-red-600"><span className="font-bold">Error:</span>{signInError}</p>
+            }
           </div>
           <button
             type="submit"

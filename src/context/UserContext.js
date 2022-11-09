@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.init"
 import { GoogleAuthProvider } from "firebase/auth";
 const auth = getAuth(app);
@@ -10,19 +10,50 @@ export const sharedContext = createContext();
 const UserContext = ({children}) => {
     const [user, setUser] = useState();
     const [loading, setLoading] = useState(true);
+    const [updateUser, setUpdateUser] = useState(false);
+    const [signUpError, setSignUpError] = useState(null);
+    const [signInError, setSignInError] = useState(null);
 
     const googleProvider = new GoogleAuthProvider();
+
+    const handleCreateUser = (email, password, photoURL, phone, name) => {
+        setSignUpError(null);
+        setLoading(true);
+        return (
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                if(user) {
+                updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL: photoURL,
+                    phoneNumber: phone
+                }).then(() => {
+                    console.log(`Updated profile of user ${user.displayName}`);
+                    setUpdateUser(!updateUser);
+                }).catch((error) => {
+                    console.error('error', error);
+                });            
+                }
+            })
+            .catch((error) => {
+                console.error('error', error);
+                setSignUpError(error.code);
+            })
+        )
+    }
+
+    const handleSignIn = (email, password) => {
+        setLoading(true);
+        setSignInError(null);
+        return signInWithEmailAndPassword(auth, email, password)
+    }
 
     const handleGoogleSignIn = () => {
         setLoading(true)
         return (
             signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-            }).catch((error) => {
-                console.error('error', error);
-            })
         )
     }
 
@@ -47,9 +78,9 @@ const UserContext = ({children}) => {
             console.log(user);
           });
         return () => unsubscribe();
-    },[])
+    },[updateUser])
     
-    const contextInfo = {handleGoogleSignIn, handleSignOut, user, loading};
+    const contextInfo = {handleGoogleSignIn, handleSignOut, handleCreateUser, signUpError, user, loading, handleSignIn, signInError};
     return (
         <div>
             <sharedContext.Provider value={contextInfo}>
