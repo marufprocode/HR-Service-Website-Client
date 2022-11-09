@@ -1,6 +1,7 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import brandLogo from "../../../assets/logo/HrVisionLogoBlue.png"
 import { sharedContext } from "../../../context/UserContext";
 
 const Header = () => {
@@ -11,12 +12,12 @@ const Header = () => {
       <Navbar fluid={true} rounded={true} className="shadow-lg">
         <Navbar.Brand href="https://flowbite.com/">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="mr-3 h-6 sm:h-9"
-            alt="Flowbite Logo"
+            src={brandLogo}
+            className="mr-3 h-6 w-10 sm:h-9"
+            alt="HR VISION"
           />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            Flowbite
+          <span className="font-blackHan self-center whitespace-nowrap text-xl font-semibold dark:text-white text-sky-600">
+            HR VISION
           </span>
         </Navbar.Brand>
         <div className={`${user? "flex md:order-2":"hidden"}`} /* className="flex md:order-2 hidden" */>
@@ -37,7 +38,7 @@ const Header = () => {
                 {user?.email}
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Item>Earnings</Dropdown.Item>
             <Dropdown.Divider />

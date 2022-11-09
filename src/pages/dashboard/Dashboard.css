@@ -1,0 +1,10 @@
+.sideBar{
+    animation-duration: 0.5s;
+    transition-duration: 0.5s;
+    transition: ease-in-out 0.5s;
+}
+
+.sideOpenBtn{
+    animation-duration: 0.5s;
+    transition-duration: 0.5s;
+}

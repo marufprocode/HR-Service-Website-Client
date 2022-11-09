@@ -1,5 +1,5 @@
 import { Button, Carousel } from "flowbite-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ServiceCard from "../components/shared/ServiceCard";
 import "./Home.css";
 import parallaxImg from "../../assets/images/3175367.jpg"
@@ -10,11 +10,17 @@ import carouselImg4 from "../../assets/images/CarouselImg4.jpg"
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [serviceData, setServiceData] = useState();
     const parallaxStyle = {
         background: `linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url(${parallaxImg})`,
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
     }
+    useEffect(()=> {
+      fetch('http://localhost:5000/services?limit=3')
+      .then(res=> res.json())
+      .then(data=> setServiceData(data));
+    },[])
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
@@ -77,9 +83,12 @@ const Home = () => {
           </h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center my-10 gap-5 px-5">
+          {/* {<ServiceCard />
           <ServiceCard />
-          <ServiceCard />
-          <ServiceCard />
+          <ServiceCard />} */}
+          {
+            serviceData?.map(service => <ServiceCard key={service._id} service={service}/>)
+          }
         </div>
         <div className="flex justify-center">
           <Link to="/services"><Button>View All Services</Button></Link>

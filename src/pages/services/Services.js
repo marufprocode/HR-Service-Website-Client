@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ServiceCard from "../components/shared/ServiceCard";
+import serviceTopImg from "../../assets/images/servicetop.jpg";
 
 const Services = () => {
+    const [services, setServices] = useState();
+    const serviceTop = {
+        background: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url(${serviceTopImg})`,
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',
+    }
+    useEffect(()=> {
+        fetch('http://localhost:5000/services')
+        .then(res => res.json())
+        .then(data => setServices(data));
+    }, [])
     return (
         <div>
-            <h1>All Services hare</h1>
+            <div className="h-[150px] relative" style={serviceTop}>
+                <div className="absolute bottom-0 left-[50%] transform translate-y-1/2 translate-x-[-50%]"><p className="bg-sky-700 py-3 px-5 inline font-bold text-white">My All Services</p></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center my-10 gap-5 px-5">
+                {
+                    services?.map((service)=> <ServiceCard key={service._id} service={service}/>)
+                }
+            </div>
         </div>
     );
 };

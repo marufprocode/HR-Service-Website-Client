@@ -5,13 +5,22 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 
 
+
 const Login = () => {
     const {handleGoogleSignIn, signInError, handleSignIn} = useContext(sharedContext);
     const [showPass, setShowPass] = useState(false);
     const navigate = useNavigate();
 	  const location = useLocation();
+
 	  let from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();
+
+
+/*     if(user?.uid){
+      if(location.search === '?back'){
+        window.history.back();
+      }
+    } */
 
     const onSubmit = data => {
         const email = data.email;
