@@ -1,5 +1,6 @@
 import AddService from "../pages/dashboard/AddService";
 import Dashboard from "../pages/dashboard/Dashboard";
+import MyReviews from "../pages/dashboard/MyReviews";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
@@ -51,6 +52,10 @@ const routes = createBrowserRouter([
             {
                 path: '/dashboard/add-service',
                 element: <AddService/>
+            },
+            {
+                path: '/dashboard/my-reviews',
+                element: <MyReviews/>
             }
         ]
     }

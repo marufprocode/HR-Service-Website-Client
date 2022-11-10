@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
+import { sharedContext } from '../../context/UserContext';
 
 const AddService = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {user} = useContext(sharedContext);
     const onSubmit = data => {
         console.log(data);
         axios.post('http://localhost:5000/add-service', data)
@@ -18,21 +20,16 @@ const AddService = () => {
                 <div className="container mx-auto bg-white dark:bg-gray-800 rounded">
                     <div className="xl:w-full border-b border-gray-300 dark:border-gray-700 py-5 bg-white dark:bg-gray-800">
                         <div className="flex w-11/12 mx-auto xl:w-full xl:mx-0 items-center">
-                            <p className="text-lg text-gray-800 dark:text-gray-100 font-bold">Profile</p>
-                            <div className="ml-2 cursor-pointer text-gray-600 dark:text-gray-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16}>
-                                    <path className="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1zm0-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" fill="currentColor" />
-                                </svg>
-                            </div>
+                            <p className="text-xl text-gray-800 dark:text-gray-100 font-bold">Add a Service</p>
                         </div>
                     </div>
                     <div className="mx-auto">
                         <div className="xl:w-9/12 w-11/12 mx-auto xl:mx-0">
                             <div className="rounded relative mt-8 h-48">
-                                <img src="https://cdn.tuk.dev/assets/webapp/forms/form_layouts/form1.jpg" alt="imgrandom" className="w-full h-full object-cover rounded absolute shadow" />
-                                <div className="absolute bg-black opacity-50 top-0 right-0 bottom-0 left-0 rounded" />
+                                <img src="https://media.istockphoto.com/id/1331493599/photo/shot-of-a-businessman-using-a-computer-while-working-in-a-call-center.jpg?s=612x612&w=0&k=20&c=ocaFzVRnDARFnANjyd6CMrwAI0Ua6I0Na_MKej8IysA=" alt="imgrandom" className="w-full h-full object-cover rounded absolute shadow" />
+                                <div className="absolute bg-black opacity-30 top-0 right-0 bottom-0 left-0 rounded" />
                                 <div className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
-                                    <img src="https://cdn.tuk.dev/assets/webapp/forms/form_layouts/form2.jpg" alt="imgrandom" className="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
+                                    <img src={user?.photoURL} alt="imgrandom" className="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
                                     <div className="absolute top-0 right-0 bottom-0 left-0 rounded-full z-0" />
                                 </div>
                             </div>

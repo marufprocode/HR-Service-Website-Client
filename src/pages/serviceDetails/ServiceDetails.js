@@ -32,11 +32,15 @@ const ServiceDetails = () => {
   };
 
   const onSubmit = (data) => {
+    if(!(data.ratings>=1 && data.ratings <=5)){
+      return;
+    }
     const review = {
       message: data.reviewTxt,
       ratings: data.ratings,
       time: new Date().toLocaleString(),
       reviewId: id,
+      userId: user?.uid,
       reviewItem: serviceData?.serviceTitle,
       userName: user?.displayName,
       photo: user?.photoURL,
@@ -86,9 +90,15 @@ const ServiceDetails = () => {
         <div className="col-span-12 md:col-span-5 lg:col-span-4 order-2 md:order-1 px-7 md:px-3 lg:px-10">
           <h1 className="text-2xl mt-5 md:mt-28 py-6">User's Review</h1>
           {/* single User Review  */}
-          {reviews?.map((review) => (
+          {
+            reviews?.length? 
+            reviews?.map((review) => <UserReviews key={review._id} review={review}/>)
+            :
+            <p>No User's Review this service</p>
+          }
+          {/* {reviews?.map((review) => (
             <UserReviews key={review._id} review={review}/>
-          ))}
+          ))} */}
           {/* Leave A Review Section  */}
           {user?.uid?  (
             <div>

@@ -1,6 +1,7 @@
 import { Sidebar } from "flowbite-react";
 import React from "react";
-import {HiChartPie, HiViewBoards, HiInbox, HiUser, HiShoppingBag, HiArrowSmRight, HiTable} from "react-icons/hi"
+import {HiChartPie, HiCollection, HiLogout, HiDocumentAdd} from "react-icons/hi"
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
@@ -8,31 +9,23 @@ const SideBar = () => {
       <Sidebar aria-label="Default sidebar example">
         <Sidebar.Items>
           <Sidebar.ItemGroup>
-            <Sidebar.Item href="#" icon={HiChartPie}>
+            <Sidebar.Item icon={HiChartPie}>
               Dashboard
             </Sidebar.Item>
-            <Sidebar.Item
-              href="#"
-              icon={HiViewBoards}
-              label="Pro"
-              labelColor="alternative"
-            >
-              Kanban
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiInbox} label="3">
-              Inbox
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiUser}>
-              Users
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>
-              Products
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiArrowSmRight}>
-              Sign In
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiTable}>
-              Sign Up
+            <li>
+              <Link to="/dashboard/add-service" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <HiDocumentAdd className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"/>
+                <span className="flex-1 ml-3 whitespace-nowrap">Add Services</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/my-reviews" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <HiCollection className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"/>
+                <span className="flex-1 ml-3 whitespace-nowrap">My Reviews</span>
+              </Link>
+            </li>
+            <Sidebar.Item icon={HiLogout}>
+              Sign Out
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
