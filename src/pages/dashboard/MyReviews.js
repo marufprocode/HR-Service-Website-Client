@@ -7,9 +7,9 @@ import "./Dashboard.css";
 
 const MyReviews = () => {
   useTitleHelmet("reviews");
-  const { user, refresh, setRefresh } = useContext(sharedContext);
+  const { user } = useContext(sharedContext);
   const [myReviews, setMyReviews] = useState([]);
-  // const [udateReview, setUpdateReview] = useState(false);
+  const [udateReview, setUpdateReview] = useState(false);
 
   useEffect(() => {
     axios
@@ -23,7 +23,7 @@ const MyReviews = () => {
       )
       .then((res) => setMyReviews(res))
       .catch((error) => console.error(error));
-  }, [refresh, user]);
+  }, [user, udateReview]);
 
   const handleDeleteReview = (id) => {
     axios
@@ -34,8 +34,7 @@ const MyReviews = () => {
       })
       .then((res) => {
         if (res.data.success) {
-          // setUpdateReview(!udateReview);
-          setRefresh(!refresh);
+          setUpdateReview(!udateReview);
         }
       })
       .catch((error) => console.error(error));

@@ -13,7 +13,6 @@ const UserContext = ({children}) => {
     const [updateUser, setUpdateUser] = useState(false);
     const [signUpError, setSignUpError] = useState(null);
     const [signInError, setSignInError] = useState(null);
-    const [refresh, setRefresh] = useState(false);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -81,7 +80,7 @@ const UserContext = ({children}) => {
         return () => unsubscribe();
     },[updateUser])
     
-    const contextInfo = {handleGoogleSignIn, handleSignOut, handleCreateUser, signUpError, user, loading, handleSignIn, signInError, refresh, setRefresh};
+    const contextInfo = {handleGoogleSignIn, handleSignOut, handleCreateUser, signUpError, user, loading, handleSignIn, signInError};
     return (
         <div>
             <sharedContext.Provider value={contextInfo}>

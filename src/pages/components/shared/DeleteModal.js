@@ -1,19 +1,15 @@
-import React, { useContext } from 'react';
 import { Modal } from "flowbite-react";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import 'react-toastify/dist/ReactToastify.css';
-import { sharedContext } from '../../../context/UserContext';
 
 
 const DeleteModal = ({review, handleDeleteReview}) => {
   const [openModal, setOpenModal] = useState(undefined);
-  const {refresh, setRefresh} = useContext(sharedContext);
   const handleDelete = (id) => {
     handleDeleteReview(id);
     setOpenModal(undefined);
-    setRefresh(!refresh);
     toast.success('Successfully Deleted the review!', {
       position: "top-center",
       autoClose: 700,

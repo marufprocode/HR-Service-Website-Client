@@ -7,7 +7,7 @@ import { sharedContext } from "../../../context/UserContext";
 
 const ReviewEditModal = ({ review }) => {
   const [openModal, setOpenModal] = useState(undefined);
-  const { handleSignOut, user, setRefresh, refresh } =
+  const { handleSignOut, user } =
     useContext(sharedContext);
   const {
     register,
@@ -34,7 +34,6 @@ const ReviewEditModal = ({ review }) => {
         return res.json();
       })
       .then((data) => {
-        setRefresh(!refresh);
         toast.success("Successfully Updated The Review!", {
           position: "top-center",
           autoClose: 700,

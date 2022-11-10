@@ -13,7 +13,7 @@ const AddService = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { user, setRefresh, refresh } = useContext(sharedContext);
+  const { user } = useContext(sharedContext);
   useTitleHelmet("add-service");
   const onSubmit = (data) => {
     axios
@@ -23,7 +23,6 @@ const AddService = () => {
       )
       .then((res) => {
         console.log(res);
-        setRefresh(!refresh);
         toast.success("Successfully Added The Service!", {
           position: "top-center",
           autoClose: 700,
