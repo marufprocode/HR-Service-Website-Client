@@ -1,3 +1,4 @@
+import Blogs from "../pages/blogs/Blogs";
 import AddService from "../pages/dashboard/AddService";
 import Dashboard from "../pages/dashboard/Dashboard";
 import MyReviews from "../pages/dashboard/MyReviews";
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
             {
                 path: '/service-details/:id',
                 element: <ServiceDetails/>
+            },
+            {
+                path: '/blogs',
+                element: <Blogs/>
             },
             {
                 path: '/service-details/add/:id',
