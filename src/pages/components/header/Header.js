@@ -16,7 +16,7 @@ const Header = () => {
             className="mr-3 h-6 w-10 sm:h-9"
             alt="HR VISION"
           />
-          <span className="font-blackHan self-center whitespace-nowrap text-xl font-semibold dark:text-white text-sky-600">
+          <span className="font-blackHan self-center whitespace-nowrap text-xl font-semibold dark:text-white text-sky-600 hidden sm:block">
             HR VISION
           </span>
         </Navbar.Brand>
@@ -39,29 +39,34 @@ const Header = () => {
               </span>
             </Dropdown.Header>
             <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Item><Link to="/dashboard/add-service">Add Services</Link></Dropdown.Item>
+            <Dropdown.Item><Link to="/dashboard/my-reviews">My Reviews</Link></Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </Dropdown>
             <Navbar.Toggle />
         </div>
         <div className={`${user? "hidden":"flex md:order-2"}`} /* className="flex md:order-3" */>
-        <Link to="/login">
+        <Link to="/login" className="mr-3">
             <Button>
             Login
+            </Button>
+        </Link>
+        <Link to="/register">
+            <Button>
+            Sign Up
             </Button>
         </Link>
             <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/home" active={true}>
-            Home
+          <Navbar.Link>
+            <Link to="/home">Home</Link>
           </Navbar.Link>
-          <Navbar.Link href="/about">About</Navbar.Link>
-          <Navbar.Link href="/services">Services</Navbar.Link>
-          <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-          <Navbar.Link href="/navbars">Contact</Navbar.Link>
+
+          <Link to="/#">About me</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/blogs">Blogs</Link>
         </Navbar.Collapse>
       </Navbar>
     </div>

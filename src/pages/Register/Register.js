@@ -2,6 +2,8 @@ import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
+import brandLogo from "../../assets/logo/HrVisionLogoBlue.png"
+import "./Register.css"
 
 const Register = () => {
     const {handleCreateUser, signUpError, user} = useContext(sharedContext);
@@ -27,14 +29,13 @@ const Register = () => {
     console.log(errors);
 
   return (
-    <div>
-      <div className="grid grid-cols-12 min-h-screen">
-        <div className="col-span-5 bg-blue-500"></div>
-        <div className="col-span-7 py-10 px-10">
-          <div className="bg-gray-300 p-5 rounded-lg">
+    <>
+      <div className="grid grid-cols-12 min-h-screen justify-items-center main-reg-body">
+        <div className="col-span-12 py-10 px-3 md:px-10 mt-10">
+          <div className="bg-teal-800 bg-opacity-40 p-5 rounded-lg">
             <div className="">
               <img
-                src="https://www.pngfind.com/pngs/m/685-6854994_react-logo-no-background-hd-png-download.png"
+                src={brandLogo}
                 alt="brandImg"
                 className="w-[50px] h-[50px]"
               />
@@ -42,7 +43,7 @@ const Register = () => {
             <h1 className="text-2xl font-bold">Create your Account</h1>
             <p>
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-600">
+              <Link to="/login" className="text-blue-900">
                 Login here.
               </Link>
             </p>
@@ -180,7 +181,7 @@ const Register = () => {
         </div>
         {/* ...........  */}
       </div>
-    </div>
+    </>
   );
 };
 

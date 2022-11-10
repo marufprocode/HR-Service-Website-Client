@@ -144,7 +144,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center">
+            <div className="w-full md:flex justify-center hidden">
                 <div className="max-w-[500px] bg-slate-100 text-gray-700 p-10">
                     <h1 className="text-3xl text-center">Get Stay Touch with Us</h1>
                     <h1 className="text-center">Get Updates on services</h1>
@@ -157,9 +157,7 @@ const Home = () => {
             </div>
         </div>
       </div>
-      <div>
-        asdhisaodhsDsoiadhao
-      </div>
+      {/* You Can Add Section Here  */}
     </div>
   );
 };
