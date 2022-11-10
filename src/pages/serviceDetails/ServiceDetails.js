@@ -5,12 +5,14 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { sharedContext } from "../../context/UserContext";
 import UserReviews from "../components/shared/UserReviews";
+import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const ServiceDetails = () => {
   const [serviceData, setServiceData] = useState();
   const [reviews, setReviews] = useState([]);
   const [refreshReview, setRefreshReview] = useState(false);
   const { user } = useContext(sharedContext);
+  useTitleHelmet('service-details');
   const {
     register,
     handleSubmit,

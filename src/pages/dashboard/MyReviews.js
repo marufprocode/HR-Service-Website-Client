@@ -3,9 +3,11 @@ import axios from "axios";
 import { sharedContext } from "../../context/UserContext";
 import TableRow from "../components/shared/TableRow";
 import "./Dashboard.css";
+import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
+  useTitleHelmet('reviews');
   const { user } = useContext(sharedContext);
   const [udateReview, setUpdateReview] = useState(false);
 

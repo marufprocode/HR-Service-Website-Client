@@ -8,6 +8,7 @@ import carouselImg2 from "../../assets/images/CarouselImg2.webp";
 import carouselImg3 from "../../assets/images/CarouselImg3.png";
 import carouselImg4 from "../../assets/images/CarouselImg4.jpg";
 import { Link } from "react-router-dom";
+import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const Home = () => {
   const [serviceData, setServiceData] = useState();
@@ -16,6 +17,7 @@ const Home = () => {
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
   };
+  useTitleHelmet('Home')
   useEffect(() => {
     fetch("http://localhost:5000/services?limit=3")
       .then((res) => res.json())
@@ -24,7 +26,7 @@ const Home = () => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 h-fit">
-        <div className="bg-violet-700 hero-left h-[90%] max-h-[600px] min-h-[400px]">
+        <div className="bg-violet-700 hero-left h-[90%] max-h-[600px] lg:h-[550px] min-h-[400px]">
           <div className="flex top-10 flex-col h-full justify-center px-10">
             <p className="hero-text-sm font-ubuntu font-bold text-gray-800">
               {" "}
@@ -41,7 +43,7 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <div className="h-[90%] max-h-[600px] min-h-[400px] mt-[0px] md:mt-0 w-full md:relative">
+        <div className="h-[90%] max-h-[600px] lg:h-[550px] min-h-[400px] mt-[0px] md:mt-0 w-full md:relative">
           <div className="md:w-[900px] h-full min-h-[300px] md:mt-0 md:absolute md:right-0 md:z-[-1]">
             <Carousel
               indicators={false}

@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { sharedContext } from '../../context/UserContext';
+import useTitleHelmet from '../../hooks/TitleHelmet';
 
 const AddService = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const {user} = useContext(sharedContext);
+    useTitleHelmet('add-service');
     const onSubmit = data => {
         console.log(data);
         axios.post('http://localhost:5000/add-service', data)

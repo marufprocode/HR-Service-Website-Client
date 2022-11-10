@@ -3,10 +3,12 @@ import ServiceCard from "../components/shared/ServiceCard";
 import serviceTopImg from "../../assets/images/servicetop.jpg";
 import { ColorRing } from  'react-loader-spinner';
 import { sharedContext } from '../../context/UserContext';
+import useTitleHelmet from '../../hooks/TitleHelmet';
 
 const Services = () => {
     const [services, setServices] = useState([]);
     const {loading} = useContext(sharedContext); 
+    useTitleHelmet('services')
     
     const serviceTop = {
         background: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url(${serviceTopImg})`,

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { Outlet } from 'react-router-dom';
+import useTitleHelmet from '../../hooks/TitleHelmet';
 import Header from '../components/header/Header';
 import SideBar from '../components/shared/SideBar';
 import "./Dashboard.css";
 
 const Dashboard = () => {
     const [isOpen, setOpen] = useState(false);
+    useTitleHelmet('dashboard')
     return (
         <div>
             <Header/>

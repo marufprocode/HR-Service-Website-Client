@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
+import useTitleHelmet from "../../hooks/TitleHelmet";
 
 
 
@@ -11,6 +12,7 @@ const Login = () => {
     const [showPass, setShowPass] = useState(false);
     const navigate = useNavigate();
 	  const location = useLocation();
+    useTitleHelmet('Login')
 
 	  let from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();

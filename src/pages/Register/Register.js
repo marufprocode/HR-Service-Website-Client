@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import brandLogo from "../../assets/logo/HrVisionLogoBlue.png"
 import "./Register.css"
+import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const Register = () => {
     const {handleCreateUser, signUpError, user} = useContext(sharedContext);
@@ -11,6 +12,7 @@ const Register = () => {
     const passRef = useRef();
     const conPassRef = useRef();
     const password = watch ("password");
+    useTitleHelmet('Sign Up')
 
     const onSubmit = data => {
         const email = data.email;
