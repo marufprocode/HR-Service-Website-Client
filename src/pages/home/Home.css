@@ -7,6 +7,16 @@
     /* top: 90%; */
 }
 
+.hero-text-sm::before{
+    content: "";
+    display: inline-block;
+    width: 90px;
+    height: 5px;
+    margin-bottom: 2px;
+    background: rgb(35, 38, 94);
+    color: aqua;
+}
+
 .review-section{
     border-top-left-radius: 100px;
 }

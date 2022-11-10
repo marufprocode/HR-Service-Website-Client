@@ -1,6 +1,6 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import brandLogo from "../../../assets/logo/HrVisionLogoBlue.png"
 import { sharedContext } from "../../../context/UserContext";
 
@@ -60,13 +60,10 @@ const Header = () => {
             <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link>
-            <Link to="/home">Home</Link>
-          </Navbar.Link>
-
-          <Link to="/#">About me</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/blogs">Blogs</Link>
+          <NavLink to="/home" className={({isActive})=> isActive? "text-blue-700":""}>Home</NavLink>
+          <NavLink to="/#" className={({isActive})=> isActive? "text-blue-700":""}>About me</NavLink>
+          <NavLink to="/services" className={({isActive})=> isActive? "text-blue-700":""}>Services</NavLink>
+          <NavLink to="/blogs" className={({isActive})=> isActive? "text-blue-700":""}>Blogs</NavLink>
         </Navbar.Collapse>
       </Navbar>
     </div>

@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ServiceCard from "../components/shared/ServiceCard";
 import serviceTopImg from "../../assets/images/servicetop.jpg";
+import { ColorRing } from  'react-loader-spinner';
+import { sharedContext } from '../../context/UserContext';
 
 const Services = () => {
-    const [services, setServices] = useState();
+    const [services, setServices] = useState([]);
+    const {loading} = useContext(sharedContext); 
+    
     const serviceTop = {
         background: `linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url(${serviceTopImg})`,
         backgroundSize: 'cover',
@@ -13,7 +17,22 @@ const Services = () => {
         fetch('http://localhost:5000/services')
         .then(res => res.json())
         .then(data => setServices(data));
-    }, [])
+    }, []);
+
+    if(loading) return (
+        <div className='flex justify-center min-h-screen items-center'>
+            <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            />
+        </div>
+    )
+
+
     return (
         <div>
             <div className="h-[150px] relative" style={serviceTop}>
