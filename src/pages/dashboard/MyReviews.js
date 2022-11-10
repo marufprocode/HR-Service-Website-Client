@@ -2,35 +2,44 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { sharedContext } from "../../context/UserContext";
 import TableRow from "../components/shared/TableRow";
-import "./Dashboard.css"
+import "./Dashboard.css";
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
   const { user } = useContext(sharedContext);
   const [udateReview, setUpdateReview] = useState(false);
-  console.log(myReviews);
+
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/user-review/${user?.uid}`)
       .then((res) => setMyReviews(res))
       .catch((error) => console.error(error));
-  }, [user, user?.uid, udateReview]);
+  }, [udateReview, user, user?.uid]);
 
   const handleDeleteReview = (id) => {
-    axios.delete(`http://localhost:5000/user-review/${id}`)
-    .then(res => {
-        console.log(res)
-        if(res.data.success){
-            setUpdateReview(!udateReview)
+    axios
+      .delete(`http://localhost:5000/user-review/${id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          setUpdateReview(!udateReview);
         }
-    })
-    .catch(error => console.error(error))
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleUpdateReview = (id, data) => {
+    
   }
 
   return (
     <div className="h-[100%]">
-      {myReviews?.data?.length ? (
+      {!myReviews?.data?.length ? (
+        <div className="text-3xl font-blackHan text-orange-500 w-full h-full flex justify-center items-center">
+          <h1>No Reviews were Added Yet</h1>
+        </div>
+      ) : (
         <div className="w-full pr-5 my-6 mx-auto">
           <div className="flex flex-col">
             <div className="shadow-md sm:rounded-lg">
@@ -75,7 +84,12 @@ const MyReviews = () => {
                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                       {myReviews?.data?.length &&
                         myReviews?.data?.map((review, index) => (
-                          <TableRow key={index} review={review} handleDeleteReview={handleDeleteReview}></TableRow>
+                          <TableRow
+                            key={index}
+                            review={review}
+                            handleDeleteReview={handleDeleteReview}
+                            handleUpdateReview={handleUpdateReview}
+                          ></TableRow>
                         ))}
                     </tbody>
                   </table>
@@ -83,10 +97,6 @@ const MyReviews = () => {
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="text-3xl font-blackHan text-orange-500 w-full h-full flex justify-center items-center">
-          <h1>No Reviews were Added Yet</h1>
         </div>
       )}
     </div>
