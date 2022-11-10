@@ -1,93 +1,95 @@
 import React, { useContext, /* useEffect, */ useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { ColorRing } from  'react-loader-spinner';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ColorRing } from "react-loader-spinner";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import useTitleHelmet from "../../hooks/TitleHelmet";
 
-
-
 const Login = () => {
-    const {handleGoogleSignIn, signInError, handleSignIn, loading} = useContext(sharedContext);
-    const [showPass, setShowPass] = useState(false);
-    const navigate = useNavigate();
-	  const location = useLocation();
-    useTitleHelmet('Login')
+  const { handleGoogleSignIn, signInError, handleSignIn, loading } =
+    useContext(sharedContext);
+  const [showPass, setShowPass] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  useTitleHelmet("Login");
 
-	  let from = location.state?.from?.pathname || "/";
-    const { register, handleSubmit } = useForm();
+  let from = location.state?.from?.pathname || "/";
+  const { register, handleSubmit } = useForm();
 
-    if(loading) return (
-      <div className='flex justify-center min-h-screen items-center'>
-          <ColorRing
+  if (loading)
+    return (
+      <div className="flex justify-center min-h-screen items-center">
+        <ColorRing
           visible={true}
           height="80"
           width="80"
           ariaLabel="blocks-loading"
           wrapperStyle={{}}
           wrapperClass="blocks-wrapper"
-          />
+        />
       </div>
-  )
+    );
 
-    const getAccessToken = (email, id) => {
-      fetch('https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/jwt', {
-              method: 'POST',
-              headers: {
-                'content-type':'application/json'
-              },
-              body: JSON.stringify({email: email, id: id})
-            })
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              localStorage.setItem('access-token', data.token);
-            });
-    }
+  const getAccessToken = (email, id) => {
+    fetch("https://assignment-11-server-lyart-rho.vercel.app/jwt", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email: email, id: id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("access-token", data.token);
+      });
+  };
 
-    const onSubmit = data => {
-        const email = data.email;
-        const password = data.password;
-        console.log(email, password);
-        handleSignIn(email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          if(user){
-            getAccessToken(user?.email, user?.uid);
-            navigate(from, { replace: true });
-          }
-        })
-        .catch((error) => {
-          console.error('error', error);
-        })          
-    };
-
-    const googleSignIn = () => {
-      handleGoogleSignIn()
-      .then((result) => {
-        const user = result.user;
-        if(user){
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
+    handleSignIn(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        if (user) {
           getAccessToken(user?.email, user?.uid);
           navigate(from, { replace: true });
         }
-      }).catch((error) => {
-          console.error('error', error);
       })
-    }
+      .catch((error) => {
+        console.error("error", error);
+      });
+  };
 
-    
+  const googleSignIn = () => {
+    handleGoogleSignIn()
+      .then((result) => {
+        const user = result.user;
+        if (user) {
+          getAccessToken(user?.email, user?.uid);
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  };
 
   return (
     <div className="flex justify-center items-center relative min-h-screen">
-        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzaW5lc3MlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="loginBG" className="absolute z-[-1] object-cover min-h-[100%] min-w-[100%]"/>
+      <img
+        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzaW5lc3MlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+        alt="loginBG"
+        className="absolute z-[-1] object-cover min-h-[100%] min-w-[100%]"
+      />
       <div className="w-full max-w-md p-4 rounded-md shadow sm:p-8 bg-slate-400 bg-opacity-[70%] dark:text-gray-100">
         <h2 className="mb-3 text-3xl font-semibold text-center">
           Login to your account
         </h2>
         <p className="text-sm text-center dark:text-gray-200">
-          Dont have account? 
+          Dont have account?
           <Link
             to="/register"
             rel="noopener noreferrer"
@@ -121,7 +123,7 @@ const Login = () => {
         <form
           action=""
           className="space-y-8 ng-untouched ng-pristine ng-valid"
-        onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="space-y-4">
             <div className="space-y-2">
@@ -130,7 +132,7 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                {...register("email", {required: true})}
+                {...register("email", { required: true })}
                 name="email"
                 id="email"
                 placeholder="Your Email"
@@ -152,21 +154,32 @@ const Login = () => {
               </div>
               <input
                 required
-                {...register("password", {required: true})}
-                type={showPass? "text":"password"}
+                {...register("password", { required: true })}
+                type={showPass ? "text" : "password"}
                 name="password"
                 id="password"
                 placeholder="*****"
                 className="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
               />
-              <div className="absolute right-4 bottom-3 cursor-pointer" onClick={()=>setShowPass(!showPass)}>{showPass? <FaEyeSlash className="text-white"/>:<FaEye className="text-white"/>}</div>
+              <div
+                className="absolute right-4 bottom-3 cursor-pointer"
+                onClick={() => setShowPass(!showPass)}
+              >
+                {showPass ? (
+                  <FaEyeSlash className="text-white" />
+                ) : (
+                  <FaEye className="text-white" />
+                )}
+              </div>
             </div>
           </div>
           <div>
-            {
-              signInError &&
-              <p className="text-red-600"><span className="font-bold">Error:</span>{signInError}</p>
-            }
+            {signInError && (
+              <p className="text-red-600">
+                <span className="font-bold">Error:</span>
+                {signInError}
+              </p>
+            )}
           </div>
           <button
             type="submit"

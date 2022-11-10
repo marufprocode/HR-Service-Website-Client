@@ -36,7 +36,6 @@ const Register = () => {
         const password = data.password;
         const phone = data.phone;
         const photoURL = data.photoURL;
-        console.log(email, firstName, lastName, password, phone, photoURL);
         handleCreateUser(email, password, photoURL, phone, name)
         if(user){
           reset();

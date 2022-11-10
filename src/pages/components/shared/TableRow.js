@@ -4,7 +4,6 @@ import DeleteModal from "./DeleteModal";
 import ReviewEditModal from "./ReviewEditModal";
 
 const TableRow = ({ review, handleDeleteReview }) => {
-  console.log(review);
   return (
     <>
       <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">

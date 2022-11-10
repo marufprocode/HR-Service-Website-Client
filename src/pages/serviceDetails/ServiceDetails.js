@@ -1,18 +1,18 @@
+import axios from "axios";
 import { Button } from "flowbite-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import { sharedContext } from "../../context/UserContext";
-import UserReviews from "../components/shared/UserReviews";
 import useTitleHelmet from "../../hooks/TitleHelmet";
+import UserReviews from "../components/shared/UserReviews";
 
 const ServiceDetails = () => {
   const [serviceData, setServiceData] = useState();
   const [reviews, setReviews] = useState([]);
   const [refreshReview, setRefreshReview] = useState(false);
   const { user, loading } = useContext(sharedContext);
-  useTitleHelmet('service-details');
+  useTitleHelmet("service-details");
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const ServiceDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/services/${id}`)
+    fetch(`https://assignment-11-server-lyart-rho.vercel.app/services/${id}`)
       .then((res) => res.json())
       .then((data) => setServiceData(data));
   }, [id]);
@@ -34,7 +34,7 @@ const ServiceDetails = () => {
   };
 
   const onSubmit = (data) => {
-    if(!(data.ratings>=1 && data.ratings <=5)){
+    if (!(data.ratings >= 1 && data.ratings <= 5)) {
       return;
     }
     const review = {
@@ -50,9 +50,11 @@ const ServiceDetails = () => {
 
     if (user) {
       axios
-        .post("https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/user-review", review)
+        .post(
+          "https://assignment-11-server-lyart-rho.vercel.app/user-review",
+          review
+        )
         .then(function (response) {
-          console.log(response);
           setRefreshReview(!refreshReview);
         })
         .catch(function (error) {
@@ -64,7 +66,9 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/reviewsByTitle/${serviceData?.serviceTitle}`)
+      .get(
+        `https://assignment-11-server-lyart-rho.vercel.app/reviewsByTitle/${serviceData?.serviceTitle}`
+      )
       .then((res) => {
         setReviews(res.data);
       })
@@ -94,17 +98,18 @@ const ServiceDetails = () => {
         <div className="col-span-12 md:col-span-5 lg:col-span-4 order-2 md:order-1 px-7 md:px-3 lg:px-10">
           <h1 className="text-2xl mt-5 md:mt-28 py-6">User's Review</h1>
           {/* single User Review  */}
-          {
-            reviews?.length? 
-            reviews?.map((review) => <UserReviews key={review._id} review={review}/>)
-            :
+          {reviews?.length ? (
+            reviews?.map((review) => (
+              <UserReviews key={review._id} review={review} />
+            ))
+          ) : (
             <p>No User's Review this service</p>
-          }
+          )}
           {/* {reviews?.map((review) => (
             <UserReviews key={review._id} review={review}/>
           ))} */}
           {/* Leave A Review Section  */}
-          {user?.uid?  (
+          {user?.uid ? (
             <div>
               <h3 className="text-md font-bold mt-5">
                 Let us give a review to improve our services:
@@ -161,11 +166,14 @@ const ServiceDetails = () => {
                 </Button>
               </form>
             </div>
-          ):
-          <div>
-                <Link to={`/service-details/add/${id}`} className="text-blue-500">Please Login first,</Link> to Give a Review
+          ) : (
+            <div>
+              <Link to={`/service-details/add/${id}`} className="text-blue-500">
+                Please Login first,
+              </Link>{" "}
+              to Give a Review
             </div>
-          }
+          )}
         </div>
         <div className="col-span-12 md:col-span-7 lg:col-span-8 p-10 md:order-2">
           <h1 className="text-3xl md:text-5xl font-blackHan text-gray-700 mb-5">

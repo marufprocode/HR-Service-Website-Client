@@ -1,14 +1,14 @@
 import { Button, Carousel } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import ServiceCard from "../components/shared/ServiceCard";
-import "./Home.css";
+import { Link } from "react-router-dom";
 import parallaxImg from "../../assets/images/3175367.jpg";
 import carouselImg1 from "../../assets/images/CarouselImg1.jpg";
 import carouselImg2 from "../../assets/images/CarouselImg2.webp";
 import carouselImg3 from "../../assets/images/CarouselImg3.png";
 import carouselImg4 from "../../assets/images/CarouselImg4.jpg";
-import { Link } from "react-router-dom";
 import useTitleHelmet from "../../hooks/TitleHelmet";
+import ServiceCard from "../components/shared/ServiceCard";
+import "./Home.css";
 
 const Home = () => {
   const [serviceData, setServiceData] = useState();
@@ -17,9 +17,9 @@ const Home = () => {
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
   };
-  useTitleHelmet('Home')
+  useTitleHelmet("Home");
   useEffect(() => {
-    fetch("https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/services?limit=3")
+    fetch("https://assignment-11-server-lyart-rho.vercel.app/services?limit=3")
       .then((res) => res.json())
       .then((data) => setServiceData(data));
   }, []);
@@ -38,7 +38,10 @@ const Home = () => {
               <span>Services</span>
             </h1>
             <p className="text-slate-200">
-              I'm a HR professional, giving service with HR Vision Bangladesh is a HR Recruiting and Management Service Provider, which also provides services such as Payroll, Virtual Office, Com-pany Registration, Bank Account Open- ning for 100% foreign owned
+              I'm a HR professional, giving service with HR Vision Bangladesh is
+              a HR Recruiting and Management Service Provider, which also
+              provides services such as Payroll, Virtual Office, Com-pany
+              Registration, Bank Account Open- ning for 100% foreign owned
               companies and Fund Management Services.
             </p>
           </div>

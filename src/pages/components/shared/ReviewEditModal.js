@@ -1,13 +1,14 @@
 import { Button, Label, Modal, Textarea, TextInput } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { sharedContext } from "../../../context/UserContext";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-const ReviewEditModal = ({review}) => {
+const ReviewEditModal = ({ review }) => {
   const [openModal, setOpenModal] = useState(undefined);
-  const {handleSignOut, user, setRefresh, refresh} = useContext(sharedContext);
+  const { handleSignOut, user, setRefresh, refresh } =
+    useContext(sharedContext);
   const {
     register,
     handleSubmit,
@@ -15,43 +16,39 @@ const ReviewEditModal = ({review}) => {
     formState: { errors },
   } = useForm();
 
-
-  const onSubmit = data => {
-    data["email"]=user?.email;
-    console.log(data);
+  const onSubmit = (data) => {
+    data["email"] = user?.email;
     setOpenModal(undefined);
-    console.log(review?._id);
-        fetch(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/${review?._id}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `bearer ${localStorage.getItem('access-token')}`
-            },
-            body: JSON.stringify(data)
-        })
-        .then(res => {
-          if (res.status === 401 || res.status === 403){
-            return handleSignOut()
+    fetch(`https://assignment-11-server-lyart-rho.vercel.app/${review?._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access-token")}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return handleSignOut();
         }
-         return res.json() 
-        })
-        .then(data => {
-            console.log(data);
-            setRefresh(!refresh);
-            toast.success('Successfully Updated The Review!', {
-              position: "top-center",
-              autoClose: 700,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              });
-        })
+        return res.json();
+      })
+      .then((data) => {
+        setRefresh(!refresh);
+        toast.success("Successfully Updated The Review!", {
+          position: "top-center",
+          autoClose: 700,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
     reset();
-};
-console.log(errors);
+  };
+  console.log(errors);
 
   return (
     <>
@@ -61,7 +58,7 @@ console.log(errors);
       >
         Edit
       </button>
-      <ToastContainer/>
+      <ToastContainer />
       <Modal
         show={openModal === "default"}
         size="2xl"
@@ -71,7 +68,10 @@ console.log(errors);
         <Modal.Header className="ml-7 uppercase">Edit Item</Modal.Header>
         <Modal.Body>
           <div className="space-y-6 p-6">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
               <div>
                 <div className="mb-2 block">
                   <Label htmlFor="reviewTxt" value="Your email" />
@@ -103,7 +103,12 @@ console.log(errors);
                 />
               </div>
               <div className="flex gap-3">
-                <button type="submit" className="bg-orange-500 px-4 py-2 rounded-lg text-bold hover:bg-orange-600">Confirm</button>
+                <button
+                  type="submit"
+                  className="bg-orange-500 px-4 py-2 rounded-lg text-bold hover:bg-orange-600"
+                >
+                  Confirm
+                </button>
                 <Button color="gray" onClick={() => setOpenModal(undefined)}>
                   Decline
                 </Button>
