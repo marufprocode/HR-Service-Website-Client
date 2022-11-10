@@ -12,14 +12,22 @@ const MyReviews = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user-review/${user?.uid}`)
+      .get(`http://localhost:5000/user-review/${user?.uid}?email=${user?.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('access-token')}`
+        }
+      })
       .then((res) => setMyReviews(res))
       .catch((error) => console.error(error));
   }, [udateReview, user, user?.uid]);
 
   const handleDeleteReview = (id) => {
     axios
-      .delete(`http://localhost:5000/user-review/${id}`)
+      .delete(`http://localhost:5000/user-review/${id}?email=${user?.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('access-token')}`
+        }
+      })
       .then((res) => {
         console.log(res);
         if (res.data.success) {
@@ -29,9 +37,6 @@ const MyReviews = () => {
       .catch((error) => console.error(error));
   };
 
-  const handleUpdateReview = (id, data) => {
-    
-  }
 
   return (
     <div className="h-[100%]">
@@ -88,7 +93,6 @@ const MyReviews = () => {
                             key={index}
                             review={review}
                             handleDeleteReview={handleDeleteReview}
-                            handleUpdateReview={handleUpdateReview}
                           ></TableRow>
                         ))}
                     </tbody>

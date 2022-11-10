@@ -1,8 +1,9 @@
 import React from "react";
+// import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ReviewEditModal from "./ReviewEditModal";
 
-const TableRow = ({ review, handleDeleteReview, handleUpdateReview }) => {
+const TableRow = ({ review, handleDeleteReview }) => {
   console.log(review);
   return (
     <>
@@ -30,9 +31,9 @@ const TableRow = ({ review, handleDeleteReview, handleUpdateReview }) => {
         </td>
         {
           <td className="py-4 px-6 text-sm font-medium whitespace-nowrap">
-            {/* <button className="mr-3 text-blue-600">Edit</button> */}
+            {/* <Link to={`/dashboard/edit-review/${review?._id}`}><button className="mr-3 text-blue-600">Edit</button></Link> */}
             {/* <button className="text-red-600" onClick={()=>handleDeleteReview(review?._id)}>Delete</button> */}
-            <ReviewEditModal review={review} handleUpdateReview={handleUpdateReview}/>
+            <ReviewEditModal review={review}/>
             <DeleteModal review={review} handleDeleteReview={handleDeleteReview}/>
           </td>
         }

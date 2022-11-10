@@ -3,9 +3,9 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { sharedContext } from "../../../context/UserContext";
 
-const ReviewEditModal = ({review, handleUpdateReview}) => {
+const ReviewEditModal = ({review}) => {
   const [openModal, setOpenModal] = useState(undefined);
-  const {user} = useContext(sharedContext);
+  const {handleSignOut, user} = useContext(sharedContext);
   const {
     register,
     handleSubmit,
@@ -15,22 +15,27 @@ const ReviewEditModal = ({review, handleUpdateReview}) => {
 
 
   const onSubmit = data => {
+    data["email"]=user?.email;
     console.log(data);
     setOpenModal(undefined);
     console.log(review?._id);
-    if(user?.uid){
-        fetch(`http://localhost:5000/user-review`, {
+        fetch(`http://localhost:5000/update-review/${review?._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
             },
-            body: JSON.stringify({ratings: 5})
+            body: JSON.stringify(data)
         })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 401 || res.status === 403){
+            return handleSignOut()
+        }
+         return res.json() 
+        })
         .then(data => {
             console.log(data);
         })
-    }
     reset();
 };
 console.log(errors);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, /* useEffect, */ useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -22,6 +22,21 @@ const Login = () => {
       }
     } */
 
+    const getAccessToken = (email, id) => {
+      fetch('http://localhost:5000/jwt', {
+              method: 'POST',
+              headers: {
+                'content-type':'application/json'
+              },
+              body: JSON.stringify({email: email, id: id})
+            })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              localStorage.setItem('access-token', data.token);
+            });
+    }
+
     const onSubmit = data => {
         const email = data.email;
         const password = data.password;
@@ -31,6 +46,7 @@ const Login = () => {
           // Signed in 
           const user = userCredential.user;
           if(user){
+            getAccessToken(user?.email, user?.uid);
             navigate(from, { replace: true });
           }
         })
@@ -44,6 +60,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         if(user){
+          getAccessToken(user?.email, user?.uid);
           navigate(from, { replace: true });
         }
       }).catch((error) => {

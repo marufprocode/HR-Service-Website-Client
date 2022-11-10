@@ -37,26 +37,30 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/services',
-                element: <PrivateRoute><Services/></PrivateRoute>
+                element: <Services/>
             },
             {
                 path: '/service-details/:id',
                 element: <ServiceDetails/>
+            },
+            {
+                path: '/service-details/add/:id',
+                element: <PrivateRoute><ServiceDetails/></PrivateRoute>
             }
         ]
     },
     {
         path: '/dashboard',
-        element: <Dashboard/>,
+        element: <PrivateRoute><Dashboard/></PrivateRoute>,
         children: [
             {
                 path: '/dashboard/add-service',
-                element: <AddService/>
+                element: <PrivateRoute><AddService/></PrivateRoute>
             },
             {
                 path: '/dashboard/my-reviews',
-                element: <MyReviews/>
-            }
+                element: <PrivateRoute><MyReviews/></PrivateRoute>
+            },
         ]
     }
 ]);

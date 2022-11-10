@@ -159,7 +159,7 @@ const ServiceDetails = () => {
             </div>
           ):
           <div>
-                <Link to={`/login`} className="text-blue-500">Please Login first,</Link> to Give a Review
+                <Link to={`/service-details/add/${id}`} className="text-blue-500">Please Login first,</Link> to Give a Review
             </div>
           }
         </div>
