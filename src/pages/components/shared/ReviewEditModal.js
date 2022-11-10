@@ -2,10 +2,12 @@ import { Button, Label, Modal, Textarea, TextInput } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { sharedContext } from "../../../context/UserContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ReviewEditModal = ({review}) => {
   const [openModal, setOpenModal] = useState(undefined);
-  const {handleSignOut, user} = useContext(sharedContext);
+  const {handleSignOut, user, setRefresh, refresh} = useContext(sharedContext);
   const {
     register,
     handleSubmit,
@@ -35,6 +37,17 @@ const ReviewEditModal = ({review}) => {
         })
         .then(data => {
             console.log(data);
+            setRefresh(!refresh);
+            toast.success('Successfully Updated The Review!', {
+              position: "top-center",
+              autoClose: 700,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
         })
     reset();
 };
@@ -48,6 +61,7 @@ console.log(errors);
       >
         Edit
       </button>
+      <ToastContainer/>
       <Modal
         show={openModal === "default"}
         size="2xl"

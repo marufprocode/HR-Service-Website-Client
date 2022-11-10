@@ -1,18 +1,32 @@
 import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { ColorRing } from  'react-loader-spinner';
 import { sharedContext } from "../../context/UserContext";
 import brandLogo from "../../assets/logo/HrVisionLogoBlue.png"
 import "./Register.css"
 import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const Register = () => {
-    const {handleCreateUser, signUpError, user} = useContext(sharedContext);
+    const {handleCreateUser, signUpError, user, loading} = useContext(sharedContext);
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const passRef = useRef();
     const conPassRef = useRef();
     const password = watch ("password");
     useTitleHelmet('Sign Up')
+
+    if(loading) return (
+      <div className='flex justify-center min-h-screen items-center'>
+          <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          />
+      </div>
+  )
 
     const onSubmit = data => {
         const email = data.email;

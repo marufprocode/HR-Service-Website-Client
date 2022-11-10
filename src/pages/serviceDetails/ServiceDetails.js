@@ -11,7 +11,7 @@ const ServiceDetails = () => {
   const [serviceData, setServiceData] = useState();
   const [reviews, setReviews] = useState([]);
   const [refreshReview, setRefreshReview] = useState(false);
-  const { user } = useContext(sharedContext);
+  const { user, loading } = useContext(sharedContext);
   useTitleHelmet('service-details');
   const {
     register,
@@ -65,9 +65,11 @@ const ServiceDetails = () => {
   useEffect(() => {
     axios
       .get(`http://localhost:5000/reviewsByTitle/${serviceData?.serviceTitle}`)
-      .then((res) => setReviews(res.data))
+      .then((res) => {
+        setReviews(res.data);
+      })
       .catch((err) => console.error(err));
-  }, [serviceData?.serviceTitle, refreshReview]);
+  }, [serviceData?.serviceTitle, refreshReview, loading]);
 
   return (
     <div className="min-h-screen">
@@ -154,7 +156,7 @@ const ServiceDetails = () => {
                     <option value="1">1</option>
                   </select>
                 </div>
-                <Button className="mt-2" type="submit">
+                <Button className="mt-2 my-10" type="submit">
                   Submit Your Review
                 </Button>
               </form>

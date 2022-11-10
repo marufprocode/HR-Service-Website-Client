@@ -19,7 +19,7 @@ const UserReviews = ({review}) => {
                   </p>
                 </div>
               </div>
-              <div className="text-sm text-gray-500">1 Days Ago</div>
+              <div className="text-sm text-gray-500">{review?.time}</div>
             </div>
             <div className="text-sm font-poppins text-gray-500 mt-2">
               <hr />

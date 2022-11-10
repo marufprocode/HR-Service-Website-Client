@@ -3,15 +3,30 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { sharedContext } from '../../context/UserContext';
 import useTitleHelmet from '../../hooks/TitleHelmet';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddService = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const {user} = useContext(sharedContext);
+    const {user, setRefresh, refresh} = useContext(sharedContext);
     useTitleHelmet('add-service');
     const onSubmit = data => {
         console.log(data);
         axios.post('http://localhost:5000/add-service', data)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            setRefresh(!refresh)
+            toast.success('Successfully Added The Service!', {
+                position: "top-center",
+                autoClose: 700,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        })
         .catch(err => console.error(err))
         reset()
     };
@@ -25,6 +40,7 @@ const AddService = () => {
                             <p className="text-xl text-gray-800 dark:text-gray-100 font-bold">Add a Service</p>
                         </div>
                     </div>
+                    <ToastContainer/>
                     <div className="mx-auto">
                         <div className="xl:w-9/12 w-11/12 mx-auto xl:mx-0">
                             <div className="rounded relative mt-8 h-48">

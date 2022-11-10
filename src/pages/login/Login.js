@@ -1,6 +1,7 @@
 import React, { useContext, /* useEffect, */ useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ColorRing } from  'react-loader-spinner';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import useTitleHelmet from "../../hooks/TitleHelmet";
@@ -8,21 +9,27 @@ import useTitleHelmet from "../../hooks/TitleHelmet";
 
 
 const Login = () => {
-    const {handleGoogleSignIn, signInError, handleSignIn} = useContext(sharedContext);
+    const {handleGoogleSignIn, signInError, handleSignIn, loading} = useContext(sharedContext);
     const [showPass, setShowPass] = useState(false);
     const navigate = useNavigate();
 	  const location = useLocation();
     useTitleHelmet('Login')
 
 	  let from = location.state?.from?.pathname || "/";
-    const { register, handleSubmit, /* formState: { errors } */ } = useForm();
+    const { register, handleSubmit } = useForm();
 
-
-/*     if(user?.uid){
-      if(location.search === '?back'){
-        window.history.back();
-      }
-    } */
+    if(loading) return (
+      <div className='flex justify-center min-h-screen items-center'>
+          <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          />
+      </div>
+  )
 
     const getAccessToken = (email, id) => {
       fetch('http://localhost:5000/jwt', {

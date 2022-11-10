@@ -11,7 +11,7 @@ import {
 
 const FooterCom = () => {
   return (
-    <Footer container={true} className="bg-sky-100">
+    <div className="bg-sky-100 px-10 py-5">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="mb-6 md:mb-0">
@@ -64,7 +64,7 @@ const FooterCom = () => {
           </div>
         </div>
       </div>
-    </Footer>
+    </div>
   );
 };
 
