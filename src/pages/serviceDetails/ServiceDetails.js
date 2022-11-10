@@ -22,7 +22,7 @@ const ServiceDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${id}`)
+    fetch(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/services/${id}`)
       .then((res) => res.json())
       .then((data) => setServiceData(data));
   }, [id]);
@@ -50,7 +50,7 @@ const ServiceDetails = () => {
 
     if (user) {
       axios
-        .post("http://localhost:5000/user-review", review)
+        .post("https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/user-review", review)
         .then(function (response) {
           console.log(response);
           setRefreshReview(!refreshReview);
@@ -64,7 +64,7 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/reviewsByTitle/${serviceData?.serviceTitle}`)
+      .get(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/reviewsByTitle/${serviceData?.serviceTitle}`)
       .then((res) => {
         setReviews(res.data);
       })

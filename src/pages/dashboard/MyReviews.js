@@ -14,7 +14,7 @@ const MyReviews = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user-review/${user?.uid}?email=${user?.email}`, {
+      .get(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/user-review/${user?.uid}?email=${user?.email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('access-token')}`
         }

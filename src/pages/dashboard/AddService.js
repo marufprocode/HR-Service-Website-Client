@@ -12,7 +12,7 @@ const AddService = () => {
     useTitleHelmet('add-service');
     const onSubmit = data => {
         console.log(data);
-        axios.post('http://localhost:5000/add-service', data)
+        axios.post('https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/add-service', data)
         .then(res => {
             console.log(res);
             setRefresh(!refresh)

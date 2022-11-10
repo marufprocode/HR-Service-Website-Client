@@ -16,7 +16,7 @@ const Services = () => {
         backgroundAttachment: 'fixed',
     }
     useEffect(()=> {
-        fetch('http://localhost:5000/services')
+        fetch('https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/services')
         .then(res => res.json())
         .then(data => setServices(data));
     }, []);

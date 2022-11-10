@@ -21,7 +21,7 @@ const ReviewEditModal = ({review}) => {
     console.log(data);
     setOpenModal(undefined);
     console.log(review?._id);
-        fetch(`http://localhost:5000/update-review/${review?._id}`, {
+        fetch(`https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/${review?._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

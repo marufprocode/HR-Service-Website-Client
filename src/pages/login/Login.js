@@ -32,7 +32,7 @@ const Login = () => {
   )
 
     const getAccessToken = (email, id) => {
-      fetch('http://localhost:5000/jwt', {
+      fetch('https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/jwt', {
               method: 'POST',
               headers: {
                 'content-type':'application/json'

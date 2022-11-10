@@ -19,7 +19,7 @@ const Home = () => {
   };
   useTitleHelmet('Home')
   useEffect(() => {
-    fetch("http://localhost:5000/services?limit=3")
+    fetch("https://assignment-11-server-c6xnqjpx1-marufprocode.vercel.app/services?limit=3")
       .then((res) => res.json())
       .then((data) => setServiceData(data));
   }, []);
