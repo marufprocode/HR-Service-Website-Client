@@ -31,21 +31,6 @@ const Login = () => {
       </div>
     );
 
-  const getAccessToken = (email, id) => {
-    fetch("https://assignment-11-server-lyart-rho.vercel.app/jwt", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email: email, id: id }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("access-token", data.token);
-      });
-  };
-
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
@@ -54,7 +39,6 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         if (user) {
-          getAccessToken(user?.email, user?.uid);
           navigate(from, { replace: true });
         }
       })
@@ -68,7 +52,6 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         if (user) {
-          getAccessToken(user?.email, user?.uid);
           navigate(from, { replace: true });
         }
       })

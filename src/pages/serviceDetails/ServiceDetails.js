@@ -103,12 +103,8 @@ const ServiceDetails = () => {
               <UserReviews key={review._id} review={review} />
             ))
           ) : (
-            <p>No User's Review this service</p>
+            <p className="text-red-600">No User Review this service yet</p>
           )}
-          {/* {reviews?.map((review) => (
-            <UserReviews key={review._id} review={review}/>
-          ))} */}
-          {/* Leave A Review Section  */}
           {user?.uid ? (
             <div>
               <h3 className="text-md font-bold mt-5">

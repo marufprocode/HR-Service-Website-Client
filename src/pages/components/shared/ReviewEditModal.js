@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { sharedContext } from "../../../context/UserContext";
 
-const ReviewEditModal = ({ review }) => {
+const ReviewEditModal = ({ review, setUpdateReview }) => {
   const [openModal, setOpenModal] = useState(undefined);
   const { handleSignOut, user } =
     useContext(sharedContext);
@@ -13,13 +13,13 @@ const ReviewEditModal = ({ review }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     data["email"] = user?.email;
     setOpenModal(undefined);
-    fetch(`https://assignment-11-server-lyart-rho.vercel.app/${review?._id}`, {
+    fetch(`https://assignment-11-server-lyart-rho.vercel.app/update-review/${review?._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -44,10 +44,14 @@ const ReviewEditModal = ({ review }) => {
           progress: undefined,
           theme: "light",
         });
+        setUpdateReview(false ? false:true)
       });
     reset();
   };
-  console.log(errors);
+  
+/*   if(errors){
+    console.log(errors);
+  } */
 
   return (
     <>

@@ -1,6 +1,14 @@
 import { Button, Carousel } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import swiperImg1 from "../../assets/swiperImageData/8962_1590348561_10287_.png"
+import swiperImg2 from "../../assets/swiperImageData/code-bull-logo-symbol-enterprise-software-technology_719418-382-cutout.png"
+import swiperImg3 from "../../assets/swiperImageData/download-cutout.png"
+import swiperImg4 from "../../assets/swiperImageData/en-logo-thmb-rgb-cutout.png"
+import swiperImg5 from "../../assets/swiperImageData/Enterprise_Rent-A-Car_Logo.svg.png"
+import swiperImg6 from "../../assets/swiperImageData/logo-search-grid-1x-cutout.png"
+import swiperImg7 from "../../assets/swiperImageData/MD-enterprise.jpg-cutout.png"
+import swiperImg8 from "../../assets/swiperImageData/Origin_Enterprises_logo.svg.png"
 import parallaxImg from "../../assets/images/3175367.jpg";
 import carouselImg1 from "../../assets/images/CarouselImg1.jpg";
 import carouselImg2 from "../../assets/images/CarouselImg2.webp";
@@ -9,6 +17,15 @@ import carouselImg4 from "../../assets/images/CarouselImg4.jpg";
 import useTitleHelmet from "../../hooks/TitleHelmet";
 import ServiceCard from "../components/shared/ServiceCard";
 import "./Home.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Autoplay } from "swiper";
 
 const Home = () => {
   const [serviceData, setServiceData] = useState();
@@ -29,7 +46,6 @@ const Home = () => {
         <div className="bg-violet-700 hero-left h-[90%] max-h-[600px] lg:h-[550px] min-h-[400px]">
           <div className="flex top-10 flex-col h-full justify-center px-10">
             <p className="hero-text-sm font-ubuntu font-bold text-gray-800">
-              {" "}
               I will be you HR Assistance
             </p>
             <h1 className="font-blackHan text-white text-4xl">
@@ -66,10 +82,10 @@ const Home = () => {
       <div className="my-10">
         <div>
           <h1 className="text-center text-2xl font-bold px-5">
-            A POWERHOUSE OF CUTTING-EDGE
+            GET QUALITY HIRE TO IMPROVE COMPANY PERFORMANCE
           </h1>
           <h1 className="text-center text-2xl font-bold px-5">
-            EDUCATION, RESEARCH & TEACHING IN THE WORLD
+            CHECKOUT MY HR SERVICES
           </h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center my-10 gap-5 px-5">
@@ -88,7 +104,44 @@ const Home = () => {
       </div>
       {/* third section starts  */}
       <div className="relative">
-        <div className="absolute top-0 h-[250px] w-full bg-violet-700"></div>
+        <div className="absolute top-0 h-[250px] w-full bg-violet-700">
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={30}
+            slidesPerGroup={3}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+            loopFillGroupWithBlank={true}
+            // navigation={true}
+            className="mySwiper"
+            breakpoints= {{
+              // when window width is >= 320px
+              0: {
+                slidesPerView: 2,
+                spaceBetween: 30
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 4,
+                spaceBetween: 30
+              }
+            }}
+          >
+            <SwiperSlide><img src={swiperImg1} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg2} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg3} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg4} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg5} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg6} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg7} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg8} alt="img"/></SwiperSlide>
+            <SwiperSlide><img src={swiperImg8} alt="img"/></SwiperSlide>
+          </Swiper>
+        </div>
         <div className="absolute top-[150px] h-[500px] w-full bg-white review-section">
           <div className="w-full grid grid-cols-1 md:grid-cols-2">
             <div className="">
@@ -121,7 +174,7 @@ const Home = () => {
         >
           <div className="px-7">
             <h1 className="text-white font-blackHan text-3xl">
-              GET FREE TRAINING ON BUSINESS DEVELOPMENT BY JOHN SMITH{" "}
+              GET FREE TRAINING ON BUSINESS DEVELOPMENT BY MARUF{" "}
             </h1>
             <p className="text-gray-200">It's limited seating! Hurry Up</p>
             <div className="flex gap-3 py-5">

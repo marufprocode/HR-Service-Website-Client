@@ -10,6 +10,8 @@ const MyReviews = () => {
   const { user } = useContext(sharedContext);
   const [myReviews, setMyReviews] = useState([]);
   const [udateReview, setUpdateReview] = useState(false);
+  const [load, setLoad] = useState(false);
+
 
   useEffect(() => {
     axios
@@ -21,11 +23,17 @@ const MyReviews = () => {
           },
         }
       )
-      .then((res) => setMyReviews(res))
+      .then((res) => {
+        setMyReviews(res.data)
+      })
       .catch((error) => console.error(error));
   }, [user, udateReview]);
 
   const handleDeleteReview = (id) => {
+    setTimeout(() => {
+      setLoad(true)
+    }, 2000);
+    setLoad(false);
     axios
       .delete(`https://assignment-11-server-lyart-rho.vercel.app/user-review/${id}?email=${user?.email}`, {
         headers: {
@@ -34,15 +42,18 @@ const MyReviews = () => {
       })
       .then((res) => {
         if (res.data.success) {
+          const updatedReviews = myReviews?.data?.filter(review => review._id !== id);
+          setMyReviews(updatedReviews);
           setUpdateReview(!udateReview);
         }
       })
       .catch((error) => console.error(error));
   };
 
+
   return (
     <div className="h-[100%]">
-      {myReviews?.data?.length ? (
+      {myReviews?.length ? (
         <div className="w-full pr-5 my-6 mx-auto">
           <div className="flex flex-col">
             <div className="shadow-md sm:rounded-lg">
@@ -85,12 +96,14 @@ const MyReviews = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                      {myReviews?.data?.length &&
-                        myReviews?.data?.map((review, index) => (
+                        
+                      {myReviews?.length &&
+                        myReviews?.map((review, index) => (
                           <TableRow
                             key={index}
                             review={review}
                             handleDeleteReview={handleDeleteReview}
+                            setUpdateReview={setUpdateReview}
                           ></TableRow>
                         ))}
                     </tbody>
@@ -100,7 +113,7 @@ const MyReviews = () => {
             </div>
           </div>
         </div>
-      ) : (
+      ) : !load? <p>Loading... </p>:(
         <div className="text-3xl font-blackHan text-orange-500 w-full h-full flex justify-center items-center">
           <h1>No Reviews were Added Yet</h1>
         </div>

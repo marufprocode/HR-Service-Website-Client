@@ -60,8 +60,8 @@ const Header = () => {
             <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <NavLink to="/home" className={({isActive})=> isActive? "text-blue-700":""}>Home</NavLink>
-          <NavLink to="/#" className={({isActive})=> isActive? "text-blue-700":""}>About me</NavLink>
+          <NavLink to="/" className={({isActive})=> isActive? "text-blue-700":""}>Home</NavLink>
+          <NavLink to="/about" className={({isActive})=> isActive? "text-blue-700":""}>About me</NavLink>
           <NavLink to="/services" className={({isActive})=> isActive? "text-blue-700":""}>Services</NavLink>
           <NavLink to="/blogs" className={({isActive})=> isActive? "text-blue-700":""}>Blogs</NavLink>
         </Navbar.Collapse>

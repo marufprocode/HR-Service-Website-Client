@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 import serviceTopImg from "../../assets/images/servicetop.jpg";
-import { sharedContext } from "../../context/UserContext";
 import useTitleHelmet from "../../hooks/TitleHelmet";
 import ServiceCard from "../components/shared/ServiceCard";
 
 const Services = () => {
   const [services, setServices] = useState([]);
-  const { loading } = useContext(sharedContext);
+  const [control, setControl] = useState(false);
   useTitleHelmet("services");
 
   const serviceTop = {
@@ -18,22 +17,13 @@ const Services = () => {
   useEffect(() => {
     fetch("https://assignment-11-server-lyart-rho.vercel.app/services")
       .then((res) => res.json())
-      .then((data) => setServices(data));
+      .then((data) => {
+        setServices(data);
+        if (data) {
+          setControl(true);
+        }
+      });
   }, []);
-
-  if (loading)
-    return (
-      <div className="flex justify-center min-h-screen items-center">
-        <ColorRing
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-        />
-      </div>
-    );
 
   return (
     <div>
@@ -45,9 +35,22 @@ const Services = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center my-10 gap-5 px-5">
-        {services?.map((service) => (
-          <ServiceCard key={service._id} service={service} />
-        ))}
+        {!control ? (
+          <div className="min-h-screen col-span-3">
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+            />
+          </div>
+        ) : (
+          services?.map((service) => (
+            <ServiceCard key={service?._id} service={service} />
+          ))
+        )}
       </div>
     </div>
   );

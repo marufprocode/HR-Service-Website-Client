@@ -3,7 +3,7 @@ import React from "react";
 import DeleteModal from "./DeleteModal";
 import ReviewEditModal from "./ReviewEditModal";
 
-const TableRow = ({ review, handleDeleteReview }) => {
+const TableRow = ({ review, handleDeleteReview, setUpdateReview }) => {
   return (
     <>
       <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -32,7 +32,7 @@ const TableRow = ({ review, handleDeleteReview }) => {
           <td className="py-4 px-6 text-sm font-medium whitespace-nowrap">
             {/* <Link to={`/dashboard/edit-review/${review?._id}`}><button className="mr-3 text-blue-600">Edit</button></Link> */}
             {/* <button className="text-red-600" onClick={()=>handleDeleteReview(review?._id)}>Delete</button> */}
-            <ReviewEditModal review={review}/>
+            <ReviewEditModal review={review} setUpdateReview={setUpdateReview}/>
             <DeleteModal review={review} handleDeleteReview={handleDeleteReview}/>
           </td>
         }
