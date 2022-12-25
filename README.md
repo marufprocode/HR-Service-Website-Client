@@ -11,7 +11,7 @@
 ## Technologies Used in this project:
     * React Router Dom with firebase authentication.
     * React-Icons and Spinner Used.
-    * For CSS Tailwind and FlowBite Components used.
+    * For CSS Tailwind and FlowBite Components Library used.
     * React-Hook Forms implemented.
     * Sweet Alert.
     * Custom Hooks for Dynamic route change.
