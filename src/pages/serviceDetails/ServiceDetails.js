@@ -25,7 +25,7 @@ const ServiceDetails = () => {
     fetch(`https://assignment-11-server-lyart-rho.vercel.app/services/${id}`)
       .then((res) => res.json())
       .then((data) => setServiceData(data));
-  }, [id]);
+  }, [id, user]);
 
   const serviceDetailTop = {
     backgroundAttachment: "fixed",
@@ -73,7 +73,7 @@ const ServiceDetails = () => {
         setReviews(res.data);
       })
       .catch((err) => console.error(err));
-  }, [serviceData?.serviceTitle, refreshReview, loading]);
+  }, [serviceData, refreshReview, loading]);
 
   return (
     <div className="min-h-screen">

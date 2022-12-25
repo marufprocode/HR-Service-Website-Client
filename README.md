@@ -2,7 +2,7 @@
 ## Website Features:
     * Private Route Implemented.
     * Single Page Application give you better experience.
-    * Dynamic Title Change Hooks Impleented.
+    * Dynamic Title Change Hooks Implemented.
     * You can explore our blogs to enhance knowledge.
     * Firebase Authentication Implemented.
     * Used React-Hook-Forms for better user experiences.

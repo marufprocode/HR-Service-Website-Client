@@ -11,9 +11,11 @@ const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
   const [udateReview, setUpdateReview] = useState(false);
   const [load, setLoad] = useState(false);
-
+  const token = localStorage.getItem("access-token");
 
   useEffect(() => {
+    if(!token) return setLoad(false)
+    setLoad(true)
     axios
       .get(
         `https://assignment-11-server-lyart-rho.vercel.app/user-review/${user?.uid}?email=${user?.email}`,
@@ -25,15 +27,14 @@ const MyReviews = () => {
       )
       .then((res) => {
         setMyReviews(res.data)
+        setLoad(false);
       })
       .catch((error) => console.error(error));
-  }, [user, udateReview]);
+  }, [user, udateReview, token]);
+
 
   const handleDeleteReview = (id) => {
-    setTimeout(() => {
-      setLoad(true)
-    }, 2000);
-    setLoad(false);
+    
     axios
       .delete(`https://assignment-11-server-lyart-rho.vercel.app/user-review/${id}?email=${user?.email}`, {
         headers: {

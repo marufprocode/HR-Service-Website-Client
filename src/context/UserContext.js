@@ -91,9 +91,9 @@ const UserContext = ({ children }) => {
           .then((res) => res.json())
           .then((data) => {
             localStorage.setItem("access-token", data.token);
+            setLoading(false);
           });
-      }
-      console.log(user);
+        }
     });
     return () => unsubscribe();
   }, [updateUser]);
