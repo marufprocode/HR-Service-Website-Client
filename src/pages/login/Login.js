@@ -1,23 +1,25 @@
 import React, { useContext, /* useEffect, */ useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ColorRing } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import useTitleHelmet from "../../hooks/TitleHelmet";
 
 const Login = () => {
-  const { handleGoogleSignIn, signInError, handleSignIn, loading } =
+  const { handleGoogleSignIn, handleSignIn } =
     useContext(sharedContext);
   const [showPass, setShowPass] = useState(false);
+  const [signInError, setSignInError] = useState(null);
+  const [loginProcessing, setLoginProcessing] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   useTitleHelmet("Login");
 
   let from = location.state?.from?.pathname || "/";
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
-  if (loading)
+  /* if (loading)
     return (
       <div className="flex justify-center min-h-screen items-center">
         <ColorRing
@@ -29,9 +31,10 @@ const Login = () => {
           wrapperClass="blocks-wrapper"
         />
       </div>
-    );
+    ); */
 
   const onSubmit = (data) => {
+    setLoginProcessing(true);
     const email = data.email;
     const password = data.password;
     handleSignIn(email, password)
@@ -39,11 +42,15 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         if (user) {
+          reset()
           navigate(from, { replace: true });
+          setLoginProcessing(false);
         }
       })
       .catch((error) => {
         console.error("error", error);
+        setSignInError(error.code);
+        setLoginProcessing(false);
       });
   };
 
@@ -57,6 +64,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.error("error", error);
+        setSignInError(error.code);
       });
   };
 
@@ -166,9 +174,20 @@ const Login = () => {
           </div>
           <button
             type="submit"
+            disabled={loginProcessing}
             className="w-full px-8 py-3 font-semibold rounded-md bg-blue-600 hover:bg-blue-700 transition-all dark:text-gray-900"
           >
-            Sign in
+           {loginProcessing ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="22"
+                  visible={true}
+                />
+              ) : (
+                "Sign In"
+              )}
           </button>
         </form>
       </div>
